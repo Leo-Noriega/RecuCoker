@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 
-const API_HOST =
-  import.meta.env.VITE_API_HOST ||
-  (import.meta.env.DEV ? "http://localhost:8081" : "http://localhost:8081");
+const API_BASE = import.meta.env.DEV
+  ? import.meta.env.VITE_API_HOST || "http://localhost:8081"
+  : "";
 
 function App() {
   const [amount, setAmount] = useState("");
@@ -12,7 +12,7 @@ function App() {
   const [result, setResult] = useState(null);
 
   const endpoint = useMemo(() => {
-    const sanitized = API_HOST.replace(/\/$/, "");
+    const sanitized = API_BASE.replace(/\/$/, "");
     return `${sanitized}/api/v1/discounts`;
   }, []);
 
@@ -57,7 +57,7 @@ function App() {
       setResult(payload.data);
     } catch (err) {
       setError(
-        "Ocurrió un error al comunicarse con el servicio de descuentos."
+        "Ocurrió un error al comunicarse con el servicio de descuentos.",
       );
     } finally {
       setLoading(false);

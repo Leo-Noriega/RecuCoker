@@ -11,8 +11,6 @@ services:
   discounts:
     build:
       context: ./client
-      args:
-        VITE_API_HOST: http://localhost:8081
     image: client:latest-v4
     container_name: cliente_descuentos
     depends_on:
