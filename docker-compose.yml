@@ -1,0 +1,28 @@
+services:
+  calculator:
+    build:
+      context: ./server
+    image: calculator:latest-v4
+    container_name: servicio_descuentos
+    ports:
+      - "8081:8080"
+    networks:
+      - i2ex-alnr-net
+  discounts:
+    build:
+      context: ./client
+      args:
+        VITE_API_HOST: http://localhost:8081
+    image: client:latest-v4
+    container_name: cliente_descuentos
+    depends_on:
+      - calculator
+    ports:
+      - "3000:80"
+    networks:
+      - i2ex-alnr-net
+
+networks:
+  i2ex-alnr-net:
+    driver: bridge
+    name: i2ex-alnr-net
