@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        COMPOSE_PROJECT = "app_abarrotes"
+        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:${env.PATH}"
+    }
+
     stages {
         stage('Backend Tests') {
             steps {
